@@ -1,41 +1,33 @@
 {
-  "name": "urup.ru",
-  "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Uryupinsk online",
-  "cordovaId": "org.cordova.quasar.app",
-  "author": "Alexey Mytcykov <alexmyt1@yandex.ru>",
+  "name": "front.urup.ru",
+  "description": "Frontend for urup.ru",
+  "version": "1.0.0",
+  "author": "",
+  "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.vue src",
-    "test": "echo \"No test specified\" && exit 0"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "libphonenumber-js": "^1.7.8"
-  },
-  "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "eslint": "^4.18.2",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-friendly-formatter": "^4.0.1",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "eslint-plugin-vue": "^4.3.0",
-    "quasar-cli": "^0.17.0",
-    "strip-ansi": "=3.0.1"
-  },
-  "engines": {
-    "node": ">= 8.9.0",
-    "npm": ">= 5.6.0",
-    "yarn": ">= 1.6.0"
+    "vue": "^2.5.11"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 10"
-  ]
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.4",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
+  }
 }
