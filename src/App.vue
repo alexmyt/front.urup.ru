@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <navbar></navbar>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -19,5 +20,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "~styles/_variables.scss";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~styles/custom.scss";
+
 </style>

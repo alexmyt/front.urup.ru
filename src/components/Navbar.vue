@@ -66,7 +66,7 @@ header.header {
   height: 44px;
 
   a.navbar-brand.text-hide{
-    background-image: url('/images/logo.svg');
+    background-image: url("~assets/logo.svg");
     width: 240px;
     height: 44px;
     background-repeat: no-repeat;

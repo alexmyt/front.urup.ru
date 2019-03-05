@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
 var path = require('path')
 var webpack = require('webpack')
+//const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   entry: './src/main.js',
@@ -11,10 +13,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.(css|scss)$/,
         use: [
-          'vue-style-loader',
-          'css-loader'
+          {loader: 'vue-style-loader'},
+          {loader: 'css-loader', options:{sourceMap: true}},
+          {loader: 'sass-loader', options:{sourceMap: true}}
         ],
       },      {
         test: /\.vue$/,
@@ -44,7 +47,10 @@ module.exports = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'styles': path.resolve(__dirname, './src/styles/')
+      'styles': path.resolve(__dirname, './src/styles/'),
+      'assets': path.resolve(__dirname, './src/assets/'),
+      'pages': path.resolve(__dirname, './src/pages/'),
+      'components': path.resolve(__dirname, './src/components/')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
@@ -56,7 +62,10 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+  //   new VueLoaderPlugin()
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {

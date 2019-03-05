@@ -1,9 +1,7 @@
-
-@import "navigation";
-
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons");
 
 html { 
-  background: url(/images/bg1.jpg) no-repeat center center fixed; 
+  background: url(~assets/bg1.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
