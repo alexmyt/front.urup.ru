@@ -1,11 +1,7 @@
 <template>
 
   <div>
-    <div class="container my-5">
-      <div class="row">
-        <cool-select v-model="searchSelected" :items="searchItems" class="mx-auto main-search"></cool-select>
-      </div>
-    </div>
+    <main-search></main-search>
 
     <section id="content">
       <div class="container">
@@ -31,25 +27,35 @@
 <script>
 import TaxiCard from 'components/TaxiCard.vue';
 import { CoolSelect } from 'vue-cool-select';
+import MainSearch from 'components/MainSearch.vue';
 
 export default {
   name: 'SiteIndex',
   components: {
     'taxi_card': TaxiCard,
+    'main-search': MainSearch,
     CoolSelect
   },
   data () {
     return {
       searchSelected: null,
-      searchItems: ["one","two","three"]
+      searchItems: [],
+      noSearchData: false,
+      loading: false
+    }
+  },
+  methods: {
+    async onSearch(search) {
+      const lettersLimit = 2;
+      this.noSearchData = false;
+
+      if (search.length < lettersLimit) {
+        this.searchItems = [];
+        this.loading = false;
+        return;
+      }
+      this.loading = true;
     }
   }
 }
 </script>
-
-<style lang="scss">
- .main-search{
-  width: 85%;
- }
-
-</style>
