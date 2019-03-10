@@ -1,46 +1,68 @@
 /* eslint-disable no-undef */
-var path = require('path')
-var webpack = require('webpack')
-//const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const devMode = process.env.NODE_ENV !== 'production';
+const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+//const webpack = require('webpack');
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    //publicPath: '/dist/',
+    //filename: '[name].js'
   },
   module: {
     rules: [
       {
-        test: /\.(css|scss)$/,
+        test: /\.(c|sc|sa)ss$/,
+        sideEffects: true,
         use: [
-          {loader: 'vue-style-loader'},
-          {loader: 'css-loader', options:{sourceMap: true}},
-          {loader: 'sass-loader', options:{sourceMap: true}}
+          devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          //          'postcss-loader',
+          'sass-loader'
         ],
-      },      {
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           loaders: {
-            scss: 'vue-style-loader!css-loader!sass-loader', // <style lang="scss">
-            sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax' // <style lang="sass">
-          }
+            scss: [devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader, 'css-loader!sass-loader'], // <style lang="scss">
+            sass: [devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader, 'css-loader!sass-loader?indentedSyntax'] // <style lang="sass">
+          },
           // other vue-loader options go here
         }
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        options: {
+          //outputPath: 'js'
+        }
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
+          name: '[name].[ext]?[hash]',
+          outputPath: 'images'
         }
+      },
+      {
+        test: /\.html$/,
+        use: [{
+          loader: "html-loader",
+          options: {
+            minimize: true
+          }
+        }]
       }
     ]
   },
@@ -57,34 +79,74 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    contentBase: './dist'
   },
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map',
+  //devtool: '#eval-source-map',
   plugins: [
-  //   new VueLoaderPlugin()
+    new VueLoaderPlugin()
   ]
 }
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.devtool = '#source-map';
+  module.exports.output.filename = "js/[name].[chunkhash].js";
+  module.exports.optimization = {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /node_modules/,
+          chunks: "initial",
+          name: "vendors"
+        },
+        styles: {
+          name: 'styles',
+          test: /\.s?css|vue$/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    },
+
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
+  };
+
   module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: './index.html',
+      title: 'Production',
+      inject: false,
+      template: require('html-webpack-template'),
+      appMountId: 'app',
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : 'css/[name].[contenthash].css',
+      //      chunkFilename: devMode ? '[id].css' : 'css/[id].[hash].css',
     }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
+  ]);
+
+
+  // module.exports.devtool = '#source-map'
+  // // http://vue-loader.vuejs.org/en/workflow/production.html
+  // module.exports.plugins = (module.exports.plugins || []).concat([
+  //   new webpack.DefinePlugin({
+  //     'process.env': {
+  //       NODE_ENV: '"production"'
+  //     }
+  //   }),
+  //   new webpack.LoaderOptionsPlugin({
+  //     minimize: true
+  //   })
+  // ])
 }
