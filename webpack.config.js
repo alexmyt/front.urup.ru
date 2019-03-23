@@ -14,7 +14,7 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    //publicPath: '/dist/',
     filename: 'build.js'
   },
   module: {
@@ -53,7 +53,8 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]',
-          outputPath: 'images'
+          outputPath: 'images',
+          publicPath: '/images'
         }
       },
       {
@@ -81,20 +82,30 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
-    contentBase: './dist'
+    contentBase: './dist',
   },
   performance: {
     hints: false
   },
   //devtool: '#eval-source-map',
   plugins: [
+    new HtmlWebpackPlugin({
+      filename: './index.html',
+      title: devMode ? 'Testing':'Production',
+      inject: false,
+      template: require('html-webpack-template'),
+      appMountId: 'app',
+    }),
     new VueLoaderPlugin()
   ]
 }
 
 if (devMode){
   module.exports.devServer = {
-    //contentBase: './dist',
+    contentBase: './dist',
+    historyApiFallback: true,
+    noInfo: true,
+    overlay: true,
     publicPath: '/dist/',
     filename: 'bundle.js',
     writeToDisk: false
@@ -134,13 +145,6 @@ if (process.env.NODE_ENV === 'production') {
 
   module.exports.plugins = (module.exports.plugins || []).concat([
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      filename: './index.html',
-      title: 'Production',
-      inject: false,
-      template: require('html-webpack-template'),
-      appMountId: 'app',
-    }),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : 'css/[name].[contenthash].css',
       //      chunkFilename: devMode ? '[id].css' : 'css/[id].[hash].css',
