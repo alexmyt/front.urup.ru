@@ -10,11 +10,12 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 //const webpack = require('webpack');
 
 module.exports = {
+  mode: devMode ? 'development' : 'production',
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    //publicPath: '/dist/',
-    //filename: '[name].js'
+    publicPath: '/dist/',
+    filename: 'build.js'
   },
   module: {
     rules: [
@@ -89,6 +90,16 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin()
   ]
+}
+
+if (devMode){
+  module.exports.devServer = {
+    //contentBase: './dist',
+    publicPath: '/dist/',
+    filename: 'bundle.js',
+    writeToDisk: false
+  };
+  module.exports.devtool = 'inline-source-map';
 }
 
 if (process.env.NODE_ENV === 'production') {
