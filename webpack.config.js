@@ -23,7 +23,7 @@ module.exports = {
         test: /\.(c|sc|sa)ss$/,
         sideEffects: true,
         use: [
-          devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           'css-loader',
           //          'postcss-loader',
           'sass-loader'
@@ -87,8 +87,11 @@ module.exports = {
   performance: {
     hints: false
   },
+  
   //devtool: '#eval-source-map',
+  
   plugins: [
+    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       filename: './index.html',
       title: devMode ? 'Testing':'Production',
@@ -96,7 +99,11 @@ module.exports = {
       template: require('html-webpack-template'),
       appMountId: 'app',
     }),
-    new VueLoaderPlugin()
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : 'css/[name].[contenthash].css',
+      chunkFilename: devMode ? '[id].css' : 'css/[id].[hash].css',
+    }),
+    new CleanWebpackPlugin(),
   ]
 }
 
@@ -108,9 +115,9 @@ if (devMode){
     overlay: true,
     publicPath: '/dist/',
     filename: 'bundle.js',
-    writeToDisk: false
+    writeToDisk: true
   };
-  module.exports.devtool = 'inline-source-map';
+  module.exports.devtool = 'eval-source-map';
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -144,11 +151,6 @@ if (process.env.NODE_ENV === 'production') {
   };
 
   module.exports.plugins = (module.exports.plugins || []).concat([
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: devMode ? '[name].css' : 'css/[name].[contenthash].css',
-      //      chunkFilename: devMode ? '[id].css' : 'css/[id].[hash].css',
-    }),
   ]);
 
 
