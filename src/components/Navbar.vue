@@ -12,38 +12,27 @@
       </div>
     </header>
 
-    <nav id="mainNav" class="navbar navbar-expand-md navbar-default navbar-custom">
-      <div class="container">
-        <div class="nav-wrapper d-flex flex-column flex-md-row w-100 justify-content-between">
 
-          <div class="collapse navbar-collapse order-2 order-md-1" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-              <li class="nav-item menu-citizens dropdown first">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownAborigens" role="button"
-                  aria-haspopup="true" aria-expanded="false" href="#sitizens">Жителям</a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownAborigens">
-                  <li><a class="dropdown-item" href="/transport/taxi">Такси</a></li>
-                  <li><a class="dropdown-item" href="/business">Справочник организаций</a></li>
-                </ul>
-              </li>
-              <li class="nav-item menu-business">
-                <a class="nav-link" href="#portfolio">Бизнесу</a>
-              </li>
-              <li class="nav-item menu-tourists last">
-                <a class="nav-link" href="#about">Туристам</a>
-              </li>
-            </ul>
-          </div>
+    <b-navbar toggleable="sm" class="nav-menu">
+      <b-container>
+        <b-navbar-toggle target="nav_collapse"/>
+        <b-collapse is-nav id="nav_collapse">
+          <b-navbar-nav pills>
+            <b-nav-item-dropdown 
+              class="menu-citizens"
+              text="Жителям"
+              id="navbarDropdownAborigens">
+              <b-dropdown-item href="/transport/taxi">Такси</b-dropdown-item>
+              <b-dropdown-item href="/business">Справочник организаций</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item class="menu-tourists">Гостям</b-nav-item>
+            <b-nav-item class="menu-business last">Бизнесу</b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-container>
+    </b-navbar>
 
 
-          <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Показать навигацию">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-        </div>
-      </div>
-    </nav>
   </div>
 </template>
 
@@ -53,7 +42,7 @@
 @mixin navbar-colored-menu($color) {
   background: $color;
 
-  &.open>a, ul.dropdown-menu {
+  &.show>a, .dropdown-menu {
     background: $color;
   }
 }
@@ -79,7 +68,7 @@ header.header {
 
 }
 
-.navbar-custom {
+nav.nav-menu {
   border-color: transparent;
   padding: 0;
   border-bottom: $navbar-border;
@@ -89,121 +78,77 @@ header.header {
     border-bottom: none;
   }
 
-  .navbar-brand {
-    color: $primary-color;
-    font-size: 2em;
-    font-family: Comfortaa, Arial, cursive;
-    display: block;
-    @media (max-width: 767px) {
-      display: none;
-    }
-  }
+  list-style: none;
 
-  .two-rows-nav{
-    display: flex;
-    flex-direction: column;
-  }
-
-  .tool-bar{
-    float:left;
-    //width: 75%;
-    font-family: "Century Gothic", Futura, sans-serif;
-    font-size: 0.833em;
-
+  li.nav-item{
+    float: left;
+    padding: 0 15px 0 0;
     border-left: $navbar-border;
-    border-bottom: $navbar-border;
 
-    ul{
-      list-style: none;
-    }
-  }
-
-  ul.navbar-nav{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    //width: 100%;
-    clear: none;
-
-    li{
-      float: left;
-      padding: 0 15px 0 0;
-      border-left: $navbar-border;
-
-      @media (max-width: 767px) {
-        width: 100%;
-      }
-
-      &.last{
-        border-right: $navbar-border;
-      }
+    @media (max-width: 767px) {
+      width: 100%;
     }
 
-    &>li>a.nav-link{
+    &.last{
+      border-right: $navbar-border;
+    }
+
+    &>a.nav-link{
       line-height: 48px;
       padding: 0 24px;
     }
 
-  }
+    .dropdown-menu{
+      border: $navbar-border;
 
-  .nav-social{
-    font-size: 14px;
-  }
+      &.show{
+        background-color: #fff;
+      }
 
-  .nav-search{
-    width: 50%;
-    @media (max-width: 767px) {
-      width: 100%;
+      a.menu-item {
+        width: 100%;
+        border: none;
+      }
+    }
+
+    a, .dropdown-menu a {
+      font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: white !important;
+      background: transparent;
+
+      &:hover,&:focus {
+        color: #fed136;
+        outline: none;
+      }
+    }
+
+
+    &.menu-citizens {
+      @include navbar-colored-menu($citizens-bg);
+    }
+
+    &.menu-business, &.menu-business.open {
+      @include navbar-colored-menu($business-bg);
+    }
+
+    &.menu-tourists, &.menu-tourists.open {
+      @include navbar-colored-menu($tourists-bg);
     }
   }
 
+}
 
-  .navbar-nav{
-    //width: 75%;
-
-
-    li{
-
-      ul.dropdown-menu{
-        border: $navbar-border;
-
-        &.show{
-          background-color: #fff;
-        }
-
-        li {
-          width: 100%;
-          border: none;
-        }
-      }
-
-      a, .dropdown-menu li a {
-        font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        text-transform: uppercase;
-        font-weight: 400;
-        letter-spacing: 1px;
-        color: white !important;
-        background: transparent;
-
-        &:hover,&:focus {
-          color: #fed136;
-          outline: none;
-        }
-      }
-
-
-      &.menu-citizens {
-        @include navbar-colored-menu($citizens-bg);
-      }
-
-      &.menu-business, &.menu-business.open {
-        @include navbar-colored-menu($business-bg);
-      }
-
-      &.menu-tourists, &.menu-tourists.open {
-        @include navbar-colored-menu($tourists-bg);
-      }
-    }
+.navbar-custom {
+  border-color: transparent;
+  padding: 0;
+  border-bottom: $navbar-border;
+  background: rgba(0,147,221,0.88);
+  @media (max-width: 767px) {
+    background-color:transparent;
+    border-bottom: none;
   }
 
   .navbar-brand:hover,

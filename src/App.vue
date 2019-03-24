@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import "./styles/global.scss";
+
 import Navbar from "./components/Navbar.vue";
 export default {
   name: 'app',
@@ -19,10 +21,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-@import "~styles/_variables.scss";
-@import "~bootstrap/scss/bootstrap.scss";
-@import "~styles/custom.scss";
-
-</style>

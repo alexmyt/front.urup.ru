@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import App from './App.vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 
 import Router from './routes.js'
 
@@ -10,7 +8,12 @@ Vue.use(VueSelect, {
   theme: "bootstrap" // "bootstrap" or 'material-design'
 });
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 Vue.use(VueAxios,axios)
+
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue)
 
 new Vue({
   el: '#app',

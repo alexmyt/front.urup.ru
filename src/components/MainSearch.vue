@@ -21,7 +21,7 @@
             <div><router-link :to="item.route">{{ item.title }}</router-link></div>
             <div>{{ item.subtitle }}</div>
           </div>
-        </template >
+        </template>
       </cool-select>
     </div>
   </div>

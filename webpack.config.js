@@ -98,6 +98,9 @@ module.exports = {
       inject: false,
       template: require('html-webpack-template'),
       appMountId: 'app',
+      meta: [
+        {name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
+      ]
     }),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : 'css/[name].[contenthash].css',
