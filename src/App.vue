@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <navbar></navbar>
-    <router-view></router-view>
+    <main-search></main-search>
+    <section id="content">
+      <router-view></router-view>
+    </section>
   </div>
 </template>
 
@@ -9,10 +12,13 @@
 import "./styles/global.scss";
 
 import Navbar from "./components/Navbar.vue";
+import MainSearch from 'components/MainSearch.vue';
+
 export default {
   name: 'app',
   components: {
-    'navbar': Navbar
+    'navbar': Navbar,
+    'main-search': MainSearch,
   },
   data () {
     return {

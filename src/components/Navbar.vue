@@ -1,5 +1,5 @@
 <template>
-  <div id="page-hader">
+  <div id="page-header">
     <header class="header">
       <div class="container text-center text-md-left">
         <a class="navbar-brand navbar-text text-hide float-left" href="/">Урюпинск.Онлайн</a>
@@ -22,8 +22,8 @@
               class="menu-citizens"
               text="Жителям"
               id="navbarDropdownAborigens">
-              <b-dropdown-item href="/transport/taxi">Такси</b-dropdown-item>
-              <b-dropdown-item href="/business">Справочник организаций</b-dropdown-item>
+              <b-dropdown-item to="/transport/taxi/">Такси</b-dropdown-item>
+              <b-dropdown-item>Справочник организаций</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item class="menu-tourists">Гостям</b-nav-item>
             <b-nav-item class="menu-business last">Бизнесу</b-nav-item>

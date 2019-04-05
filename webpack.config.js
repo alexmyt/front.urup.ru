@@ -52,9 +52,10 @@ module.exports = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]',
+          name: '[path][name].[ext]?[hash]',
           outputPath: 'images',
-          publicPath: '/images'
+          publicPath: '/images',
+          context: path.resolve(__dirname, './src/assets/')
         }
       },
       {

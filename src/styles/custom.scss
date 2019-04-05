@@ -23,6 +23,9 @@ footer{
   max-width: 90%;
 }
 
+ ol.breadcrumb {
+   background: none;
+ }
 
 section#content{
   margin-top: 50px;
@@ -42,46 +45,8 @@ h1,h2,h3,h4{
   color: #3d3d3d;
 }
 
-a[href^="tel:"] {
-  color: orange;
-  text-decoration: none;
-  &:before {
-    content: "\260e";
-    margin-left: 1em;
-    margin-right: 0.5em;
-  }
-}
-
 form {
   margin-top: 1em;
-}
-
-.pageHeader{
-  margin-top: 2em;
-  padding-bottom: 1rem;
-  display: flex;
-  border-bottom: 1px solid #b7b7b7;
-  
-  h1 {
-    font-family: Roboto,sans-serif;
-    &:before {
-      position: relative;
-      top: -1px;
-      float: left;
-      width: 1.5rem;
-      content: "\3009";
-      font-family: arial;
-      color: $business-bg;
-    }
-    
-    small{
-      font-size: 60%;
-    }
-  }
-  
-  .shareIcons{
-    font-size: 1.55rem;
-  }
 }
 
 
