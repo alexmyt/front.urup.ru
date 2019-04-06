@@ -3,7 +3,14 @@
     <b-breadcrumb :items="breadcrumbs"></b-breadcrumb>
     <pageHeader headerText='Службы такси'></pageHeader>
 
-    <b-table stripped hover responsive="sm" :items="taxiServices" :fields="fields" >
+    <b-table 
+      striped 
+      hover 
+      responsive="sm" 
+      head-variant="light"
+      :items="taxiServices" 
+      :fields="fields" >
+      
       <template slot="name" slot-scope="data">
         <router-link :to="'/transport/taxi/'+data.item.slug">{{data.item.name}}</router-link>
       </template>

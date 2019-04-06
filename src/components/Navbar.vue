@@ -2,7 +2,7 @@
   <div id="page-header">
     <header class="header">
       <div class="container text-center text-md-left">
-        <a class="navbar-brand navbar-text text-hide float-left" href="/">Урюпинск.Онлайн</a>
+        <router-link class="navbar-brand navbar-text text-hide float-left" to="/" exact>Урюпинск.Онлайн</router-link>
         <div class="nav-social justify-content-end d-none d-md-flex">
           <ul>
             <li><a href="#"><i class="fa fa-rss-square fa-fw" data-placement="bottom" title="" data-original-title="Subscribe to Our RSS Feed"></i></a></li>
