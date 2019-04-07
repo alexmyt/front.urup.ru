@@ -26,7 +26,7 @@
       
       <b-col d-flex flex-column>
         <h4>Телефоны</h4>
-        <phone-number class="w-100" v-for="contact in taxiService.contacts" :key="contact.id" :contact="contact"/>
+        <phoneNumber class="w-100" v-for="contact in taxiService.contacts" :key="contact.id" :contact="contact"/>
       </b-col>
       
       <b-col cols="12" lg="4">
@@ -44,7 +44,7 @@ import PhoneNumber from 'components/PhoneNumber.vue';
 export default {
   components:{
     'pageHeader': PageHeader,
-    'phone-number': PhoneNumber
+    'phoneNumber': PhoneNumber,
   },
 
   data () {

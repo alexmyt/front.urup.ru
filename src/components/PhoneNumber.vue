@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss">
  a[href^="tel:"] {
-//   color: orange;
+   color: orange;
    text-decoration: none;
 //   &:before {
 //     content: "\260e";

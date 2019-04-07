@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container pb-5">
     <b-breadcrumb :items="breadcrumbs"></b-breadcrumb>
     <pageHeader headerText='Службы такси'></pageHeader>
 

@@ -23,7 +23,7 @@
               text="Жителям"
               id="navbarDropdownAborigens">
               <b-dropdown-item to="/transport/taxi/">Такси</b-dropdown-item>
-              <b-dropdown-item>Справочник организаций</b-dropdown-item>
+              <b-dropdown-item to="/organisations">Справочник организаций</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item class="menu-tourists">Гостям</b-nav-item>
             <b-nav-item class="menu-business last">Бизнесу</b-nav-item>
