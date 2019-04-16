@@ -3,9 +3,21 @@
     <b-breadcrumb :items="breadcrumbs"/>
     <pageHeader :headerText="organisation.name" :headerSub="category.name"/>
     <article>
-
-      <yandex-map :coords="[address.lat, address.lon]">
-
+      <yandex-map
+        :coords="[address.lat, address.lon]"
+        :use-object-manager="true"
+        :placemarks="placemarks"
+        style="height:300px"
+      >
+        <ymap-marker
+          marker-id="1"
+          marker-type="placemark"
+          :coords="[address.lat, address.lon]"
+          :hitContent="organisation.name"
+          :balloon="{header: organisation.name, body: address.address, footer: category.name}"
+          :icon="{color: 'darkGreen', glyph: 'DotIcon'}"
+          cluster-name="1"
+        ></ymap-marker>
       </yandex-map>
       <div class="row">
         <div class="col-12 col-sm-6">
@@ -61,14 +73,15 @@ export default {
     return {
       organisation: [],
       category: {},
-      address: {lat: 42.023224, lon: 50.794576},
+      address: { lat: 42.023224, lon: 50.794576 },
       phones: [],
       emails: [],
       urls: [],
       breadcrumbs: [
         { text: "Главная", to: { name: "home" } },
         { text: "Организации", to: { name: "organisations" } }
-      ]
+      ],
+      placemarks: []
     };
   },
 
@@ -94,6 +107,14 @@ export default {
               break;
           }
         });
+
+        this.placemarks = [
+          {
+            coords: [this.address.lat, this.address.lon],
+            properties: {},
+            options: {}
+          }
+        ];
       });
   }
 };
