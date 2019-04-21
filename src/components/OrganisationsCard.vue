@@ -35,9 +35,9 @@ export default {
   },
 
   created () {
-    this.axios.get('https://www1.urup.ru/api/organisation?card&count=5')
+    this.axios.get('organisations?card&count=5')
     .then(response => {
-      this.organisations = response.data;
+      this.organisations = response.data.data;;
     })
 
   }

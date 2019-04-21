@@ -85,14 +85,14 @@ export default {
     };
   },
 
-  created() {
+  created () {
     this.axios
-      .get("https://www1.urup.ru/api/organisation/" + this.$route.params.id)
+      .get("organisations/" + this.$route.params.id)
       .then(response => {
-        this.organisation = response.data;
+        this.organisation = response.data.data;
         this.breadcrumbs.push({ text: response.data.name, href: "#" });
-        this.category = response.data.categories[0];
-        this.address = response.data.addresses[0];
+        this.category = response.data.data.categories[0];
+        this.address = response.data.data.addresses[0];
 
         this.organisation.contacts.forEach(element => {
           switch (element.contact_type) {

@@ -62,9 +62,9 @@ export default {
   },
   
   created () {
-    this.axios.get('https://www1.urup.ru/api/taxi')
+    this.axios.get('taxiServices')
     .then(response => {
-      this.taxiServices = response.data
+      this.taxiServices = response.data.data
     })
   }
 }

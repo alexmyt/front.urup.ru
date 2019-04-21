@@ -58,10 +58,10 @@ export default {
   },
 
   created () {
-    this.axios.get('https://www1.urup.ru/api/taxi/'+this.$route.params.id)
+    this.axios.get('taxiServices/'+this.$route.params.id)
     .then(response => {
-      this.taxiService = response.data;
-      this.breadcrumbs.push({text: response.data.name, href: '#' });
+      this.taxiService = response.data.data;
+      this.breadcrumbs.push({text: this.taxiService.name, href: '#' });
     })
   }
 }
