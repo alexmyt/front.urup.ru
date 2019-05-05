@@ -29,7 +29,6 @@
 
 <script>
 import { CoolSelect } from 'vue-cool-select';
-require("babel-polyfill");
 
 export default {
   name: 'MainSearch',
