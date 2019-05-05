@@ -36,7 +36,6 @@ export default {
         { text: 'Главная', to: {name: 'home' }},
         { text: 'Организации', to: {name: 'organisations'}},
       ],
-
     }
   },
 

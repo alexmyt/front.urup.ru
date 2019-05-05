@@ -37,7 +37,26 @@ export default {
   created () {
     this.axios.get('organisations?card&count=5')
     .then(response => {
-      this.organisations = response.data.data;;
+      var organisations = response.data.data;
+      var contacts = response.data.included;
+
+      organisations.forEach(organisation => {
+        
+        organisation.attributes.id = organisation.id;
+        organisation.attributes.contacts = [];
+
+        if (organisation.relationships.contacts.data.length){
+          var contact = contacts.find(function(element) {
+            return element.id == this.relationships.contacts.data[0].id;
+          }, organisation);
+
+          if (contact){
+            organisation.attributes.contacts.push(contact.attributes);
+          }
+        }
+        
+        this.organisations.push(organisation.attributes);
+      });
     })
 
   }

@@ -1,20 +1,21 @@
 <template>
   <div class="container mb-5">
     <b-breadcrumb :items="breadcrumbs"/>
-    <pageHeader :headerText="organisation.name" :headerSub="category.name"/>
+    <pageHeader :headerText="organisation.attributes.name" :headerSub="categories[0].name"/>
     <article>
       <yandex-map
-        :coords="[address.lat, address.lon]"
+        :coords="[addresses[0].lat, addresses[0].lon]"
         :use-object-manager="true"
         :placemarks="placemarks"
         style="height:300px"
+        zoom="17"
       >
         <ymap-marker
           marker-id="1"
           marker-type="placemark"
-          :coords="[address.lat, address.lon]"
-          :hitContent="organisation.name"
-          :balloon="{header: organisation.name, body: address.address, footer: category.name}"
+          :coords="[addresses[0].lat, addresses[0].lon]"
+          :hitContent="organisation.attributes.name"
+          :balloon="{header: organisation.attributes.name, body: addresses[0].address, footer: categories[0].name}"
           :icon="{color: 'darkGreen', glyph: 'DotIcon'}"
           cluster-name="1"
         ></ymap-marker>
@@ -23,7 +24,7 @@
         <div class="col-12 col-sm-6">
           <dl class="row">
             <dt class="col-sm-3">Адрес</dt>
-            <dd class="col-sm-9" itemprop="address">{{address.address}}</dd>
+            <dd class="col-sm-9" itemprop="address">{{addresses[0].address}}</dd>
 
             <dt class="col-sm-3">Телефоны</dt>
             <dd class="col-sm-9 d-flex flex-column">
@@ -46,15 +47,16 @@
 
             <template v-if="urls.length">
               <dt class="col-sm-3">WWW</dt>
-              <dd v-for="contact in urls" class="col-sm-9 d-flex flex-column">
-                <span>
+              <dd class="col-sm-9 d-flex flex-column">
+                <p v-for="contact in urls">
                   <a :href="contact.contact" itemprop="url">{{contact.contact}}</a>
-                </span>
+                </p>
               </dd>
             </template>
           </dl>
         </div>
       </div>
+      <div class="organisationDescription" v-html="organisation.attributes.description"></div>
     </article>
   </div>
 </template>
@@ -69,11 +71,15 @@ export default {
     phoneNumber: PhoneNumber
   },
 
-  data() {
+  data () {
     return {
-      organisation: [],
-      category: {},
-      address: { lat: 42.023224, lon: 50.794576 },
+      organisation: {
+        attributes: {name: '', description: ''}
+      },
+      categories: [
+        {attributes: {name: ''}},
+      ],
+      addresses: [{ lon: 42.006310, lat: 50.798023 }],
       phones: [],
       emails: [],
       urls: [],
@@ -90,27 +96,42 @@ export default {
       .get("organisations/" + this.$route.params.id)
       .then(response => {
         this.organisation = response.data.data;
-        this.breadcrumbs.push({ text: response.data.name, href: "#" });
-        this.category = response.data.data.categories[0];
-        this.address = response.data.data.addresses[0];
+        this.breadcrumbs.push({ text: this.organisation.attributes.name, href: "#" });
+        this.categories = [];
+        this.addresses = [];
 
-        this.organisation.contacts.forEach(element => {
-          switch (element.contact_type) {
-            case "phone":
-              this.phones.push(element);
+        response.data.included.forEach(resource => {
+          switch (resource.type) {
+            case 'contact':
+              switch (resource.attributes.contact_type) {
+                case "phone":
+                  this.phones.push(resource.attributes);
+                  break;
+                case "email":
+                  this.emails.push(resource.attributes);
+                  break;
+                case "uri":
+                  this.urls.push(resource.attributes);
+                  break;
+              }
               break;
-            case "email":
-              this.emails.push(element);
+          
+            case 'address':
+              this.addresses.push(resource.attributes);
               break;
-            case "uri":
-              this.urls.push(element);
+          
+            case 'category':
+              this.categories.push(resource.attributes);
+              break;
+          
+            default:
               break;
           }
         });
 
         this.placemarks = [
           {
-            coords: [this.address.lat, this.address.lon],
+            coords: [this.addresses[0].lat, this.addresses[0].lon],
             properties: {},
             options: {}
           }
