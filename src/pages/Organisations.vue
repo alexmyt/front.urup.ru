@@ -20,13 +20,11 @@
 
 <script>
 import PageHeader from 'components/PageHeader.vue';
-import PhoneNumber from 'components/PhoneNumber.vue';
 import OrganisationsCategoryCard from 'components/OrganisationsCategoryCard.vue';
 
 export default {
   components:{
     'pageHeader': PageHeader,
-    'phoneNumber': PhoneNumber,
     'organisationCategoryCard' : OrganisationsCategoryCard,
   },
   

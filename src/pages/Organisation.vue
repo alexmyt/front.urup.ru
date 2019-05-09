@@ -38,7 +38,7 @@
 
             <template v-if="emails.length">
               <dt class="col-sm-3">E-Mail</dt>
-              <dd v-for="contact in emails" class="col-sm-9 d-flex flex-column">
+              <dd v-for="contact in emails"  :key="contact.id" class="col-sm-9 d-flex flex-column">
                 <span>
                   <a :href="'mailto:'+contact.contact" itemprop="email">{{contact.contact}}</a>
                 </span>
@@ -48,7 +48,7 @@
             <template v-if="urls.length">
               <dt class="col-sm-3">WWW</dt>
               <dd class="col-sm-9 d-flex flex-column">
-                <p v-for="contact in urls">
+                <p v-for="contact in urls" :key="contact.id">
                   <a :href="contact.contact" itemprop="url">{{contact.contact}}</a>
                 </p>
               </dd>
