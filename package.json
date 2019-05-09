@@ -18,7 +18,6 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.19",
     "vue": "^2.6.10",
-    "vue-api-query": "^1.2.0",
     "vue-axios": "^2.1.4",
     "vue-cool-select": "^2.10.2",
     "vue-router": "^3.0.6",
