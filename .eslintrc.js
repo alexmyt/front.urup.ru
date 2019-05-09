@@ -1,10 +1,12 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es6: true,
+    node: true,
   },
   extends: [
-    'airbnb-base',
+//    'airbnb-base',
     'plugin:vue/essential'
   ],
   globals: {
@@ -14,9 +16,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
+    parser: 'babel-eslint'
   },
   plugins: [
-    'vue',
   ],
   rules: {
   },
