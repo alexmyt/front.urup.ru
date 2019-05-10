@@ -1,10 +1,17 @@
 <template>
   <div id="app">
-    <navbar></navbar>
-    <main-search></main-search>
-    <section id="content">
+    <template v-if="$auth.check()">
+      <navbar></navbar>
+      <main-search></main-search>
+      <section id="content">
+        <router-view></router-view>
+      </section>
+    </template>
+
+    <template v-if="! $auth.check()">
       <router-view></router-view>
-    </section>
+    </template>
+
   </div>
 </template>
 
@@ -13,12 +20,14 @@ import "./styles/global.scss";
 
 import Navbar from "./components/Navbar.vue";
 import MainSearch from 'components/MainSearch.vue';
+import LoginPage from './pages/Login.vue';
 
 export default {
   name: 'app',
   components: {
     'navbar': Navbar,
     'main-search': MainSearch,
+    'login-page': LoginPage,
   },
   data () {
     return {

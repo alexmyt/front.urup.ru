@@ -5,13 +5,13 @@
         <router-link class="navbar-brand navbar-text text-hide float-left" to="/" exact>Урюпинск.Онлайн</router-link>
         <div class="nav-social justify-content-end d-none d-md-flex">
           <ul>
+            <li><a href="#" v-on:click="logout">Log Out</a></li>
             <li><a href="#"><i class="fa fa-rss-square fa-fw" data-placement="bottom" title="" data-original-title="Subscribe to Our RSS Feed"></i></a></li>
             <li class="last"></li>
           </ul>
         </div>
       </div>
     </header>
-
 
     <b-navbar toggleable="sm" class="nav-menu">
       <b-container>
@@ -35,6 +35,26 @@
 
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+    };
+  },
+
+  methods: {
+    logout: function() {
+      this.$auth.logout({
+        redirect: '/',
+        url: 'logout',
+        makeRequest: true
+      });
+    }
+  }
+}
+</script>
+
 
 <style lang="scss">
 @import "~styles/variables";

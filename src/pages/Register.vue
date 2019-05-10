@@ -2,7 +2,7 @@
   <div id="login-form-wrapper" class="d-flex justify-content-center h-100">
     <div class="card">
       <div class="card-header">
-        <h3>Вход</h3>
+        <h3>Регистрация</h3>
         <div class="d-flex justify-content-end social_icon">
           <span>
             <i class="fab fa-facebook-square"></i>
@@ -20,10 +20,18 @@
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
+            <input name="name" v-model="name" type="text" class="form-control" placeholder="Имя пользователя">
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
                 <i class="fas fa-at"></i>
               </span>
             </div>
-            <input name="email" v-model="email" type="text" class="form-control" placeholder="e-mail">
+            <input name="email" v-model="email" type="text" class="form-control" placeholder="E-Mail">
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -31,22 +39,20 @@
                 <i class="fas fa-key"></i>
               </span>
             </div>
-            <input name="password" v-model="password" type="password" class="form-control" placeholder="пароль">
+            <input name="password" v-model="password" type="password" class="form-control" placeholder="Пароль">
           </div>
           <div class="row align-items-center remember">
             <input name="rememberme" type="checkbox" v-model="rememberme">Запомнить меня
           </div>
           <div class="form-group">
-            <input type="button" v-on:click="login" value="Войти" class="btn float-right login_btn">
+            <input type="button" v-on:click="register" value="Регистрация" class="btn float-right login_btn">
           </div>
         </form>
       </div>
       <div class="card-footer">
         <div class="d-flex justify-content-center links">
-          <router-link to='/register'>Еще не зарегистрированы?</router-link>
-        </div>
-        <div class="d-flex justify-content-center">
-          <a href="#">Забыли пароль?</a>
+          Уже зарегистрированы?
+          <router-link to="/login">Войти</router-link>
         </div>
       </div>
     </div>
@@ -57,6 +63,7 @@
 export default {
   data () {
     return {
+      name: '',
       email: '',
       password: '',
       rememberme: true
@@ -64,12 +71,13 @@ export default {
   },
 
   methods: {
-    login: function() {
-      this.$auth.login({
-        url: 'login',
-        data: {email: this.email, password: this.password, rememberme: this.rememberme},
+    register: function() {
+      this.$auth.register({
+        url: 'register',
+        data: {name: this.name, email: this.email, password: this.password, rememberme: this.rememberme},
         rememberMe: this.rememberme,
         redirect: {name: 'home'},
+        autoLogin: true,
       });
     },
   },
