@@ -1,7 +1,8 @@
-import YmapPlugin from 'vue-yandex-maps';
-import BootstrapVue from 'bootstrap-vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import YmapPlugin from 'vue-yandex-maps';
+import BootstrapVue from 'bootstrap-vue';
+import Vuelidate from 'vuelidate';
 import VueSelect from 'vue-cool-select';
 import Notifications from 'vue-notification';
 import Vue from 'vue';
@@ -20,6 +21,7 @@ axios.defaults.headers.common = {
 Vue.use(VueAxios, axios);
 
 Vue.use(BootstrapVue);
+Vue.use(Vuelidate);
 
 Vue.use(YmapPlugin, {
   apiKey: '408aac5f-1a8e-4061-8f4e-6acf7fcc06fb',

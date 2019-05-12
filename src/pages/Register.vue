@@ -23,7 +23,7 @@
                 <i class="fas fa-user"></i>
               </span>
             </div>
-            <input name="name" v-model="name" type="text" class="form-control" placeholder="Имя пользователя">
+            <input name="name" v-model="$v.name.$model" type="text" class="form-control" :class="{ 'is-invalid': $v.name.$error}" placeholder="Имя пользователя">
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -31,7 +31,7 @@
                 <i class="fas fa-at"></i>
               </span>
             </div>
-            <input name="email" v-model="email" type="text" class="form-control" placeholder="E-Mail">
+            <input name="email" v-model="$v.email.$model" type="text" class="form-control" :class="{ 'is-invalid': $v.email.$error}" placeholder="E-Mail">
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -39,7 +39,7 @@
                 <i class="fas fa-key"></i>
               </span>
             </div>
-            <input name="password" v-model="password" type="password" class="form-control" placeholder="Пароль">
+            <input name="password" v-model="$v.password.$model" type="password" class="form-control" :class="{ 'is-invalid': $v.password.$error}" placeholder="Пароль">
           </div>
           <div class="row align-items-center remember">
             <input name="rememberme" type="checkbox" v-model="rememberme">Запомнить меня
@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import { email, required, minLength } from 'vuelidate/lib/validators';
+
 export default {
   data () {
     return {
@@ -73,8 +75,28 @@ export default {
     };
   },
 
+  validations: {
+    name: {
+      required,
+    },
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(3)
+    }
+  },
+
   methods: {
     register: function() {
+      this.$v.$touch();
+      if (this.$v.$invalid){
+        this.$notify({type: 'error', text: 'Ошибки заполнения формы'});
+        return;
+      };
+
       this.$auth.register({
         url: 'register',
         data: {name: this.name, email: this.email, password: this.password, rememberme: this.rememberme},

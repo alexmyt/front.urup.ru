@@ -23,7 +23,7 @@
                 <i class="fas fa-at"></i>
               </span>
             </div>
-            <input name="email" v-model="email" type="text" class="form-control" placeholder="e-mail">
+            <input name="email" v-model="$v.email.$model" type="text" class="form-control" :class="{ 'is-invalid': $v.email.$error}" placeholder="e-mail">
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -31,7 +31,7 @@
                 <i class="fas fa-key"></i>
               </span>
             </div>
-            <input name="password" v-model="password" type="password" class="form-control" placeholder="пароль">
+            <input name="password" v-model="$v.password.$model" type="password" class="form-control" :class="{ 'is-invalid': $v.password.$error}"  placeholder="пароль">
           </div>
           <div class="row align-items-center remember">
             <input name="rememberme" type="checkbox" v-model="rememberme">Запомнить меня
@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import { email, required, minLength } from 'vuelidate/lib/validators';
+
 export default {
   data () {
     return {
@@ -66,8 +68,25 @@ export default {
     };
   },
 
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(3)
+    }
+  },
+
   methods: {
     login: function() {
+      this.$v.$touch();
+      if (this.$v.$invalid){
+        this.$notify({type: 'error', text: 'Ошибки заполнения формы'});
+        return;
+      };
+
       this.$auth.login({
         url: 'login',
         data: {email: this.email, password: this.password, rememberme: this.rememberme},
@@ -75,7 +94,7 @@ export default {
         redirect: {name: 'home'},
         
         error: error => {
-          console.dir(error.response.data);          
+          console.dir(error.response);          
           this.$notify({
             type: 'error',
             text: "Ошибка входа: " + error.response.data.message,
