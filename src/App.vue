@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <template v-if="$auth.check()">
+    <template v-if="$auth.ready() && $auth.check()">
       <navbar></navbar>
       <main-search></main-search>
       <section id="content">
@@ -8,7 +8,7 @@
       </section>
     </template>
 
-    <template v-if="! $auth.check()">
+    <template v-if="$auth.ready() && !$auth.check()">
       <router-view></router-view>
     </template>
 
@@ -31,7 +31,6 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
   }
 }

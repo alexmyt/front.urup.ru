@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form>
+        <form v-on:submit.prevent>
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
@@ -45,7 +45,7 @@
             <input name="rememberme" type="checkbox" v-model="rememberme">Запомнить меня
           </div>
           <div class="form-group">
-            <input type="button" v-on:click="register" value="Регистрация" class="btn float-right login_btn">
+            <input type="submit" v-on:click="register" value="Регистрация" class="btn float-right login_btn">
           </div>
         </form>
       </div>
@@ -56,6 +56,9 @@
         </div>
       </div>
     </div>
+
+    <notifications position="bottom center"/>
+
   </div>
 </template>
 
@@ -78,6 +81,14 @@ export default {
         rememberMe: this.rememberme,
         redirect: {name: 'home'},
         autoLogin: true,
+
+        error: error => {
+          this.$notify({
+            type: 'error',
+            text: "Ошибка входа: " + error.response.data.message,
+          });
+        },
+
       });
     },
   },
@@ -91,7 +102,7 @@ export default {
 }
 
 .card {
-  height: 370px;
+  /* height: 370px; */
   margin-top: auto;
   margin-bottom: auto;
   width: 400px;

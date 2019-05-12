@@ -3,6 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueSelect from 'vue-cool-select';
+import Notifications from 'vue-notification';
 import Vue from 'vue';
 import Router from './routes';
 
@@ -23,6 +24,8 @@ Vue.use(BootstrapVue);
 Vue.use(YmapPlugin, {
   apiKey: '408aac5f-1a8e-4061-8f4e-6acf7fcc06fb',
 });
+
+Vue.use(Notifications);
 
 // Authenticate plugin
 Vue.router = Router;  // need for vue-auth
