@@ -1,17 +1,14 @@
 {
   "name": "front.urup.ru",
-  "description": "Frontend for urup.ru",
   "version": "1.0.0",
-  "author": "",
-  "license": "MIT",
   "private": true,
-  "sideEffects": [
-    "*.scss"
-  ],
+  "description": "Frontend for urup.ru",
+  "author": "",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --mode development",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --mode production",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --mode development",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
     "@babel/runtime": "^7.4.4",
@@ -22,16 +19,12 @@
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
     "vue-cool-select": "^2.10.2",
+    "vue-i18n": "^8.11.2",
     "vue-notification": "^1.3.16",
     "vue-router": "^3.0.6",
     "vue-yandex-maps": "^0.8.4",
     "vuelidate": "^0.7.4"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
@@ -61,11 +54,21 @@
     "sass-resources-loader": "^2.0.0",
     "scss-loader": "*",
     "uglifyjs-webpack-plugin": "^2.1.2",
+    "vue-cli-plugin-i18n": "^0.6.0",
     "vue-loader": "^15.0.0",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1",
     "webpack-merge": "^4.2.1"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "license": "MIT",
+  "sideEffects": [
+    "*.scss"
+  ]
 }

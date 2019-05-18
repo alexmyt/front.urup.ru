@@ -2,7 +2,7 @@
   <div id="login-form-wrapper" class="d-flex justify-content-center h-100">
     <div class="card">
       <div class="card-header">
-        <h3>Вход</h3>
+        <h3>{{$t('auth.login')}}</h3>
         <div class="d-flex justify-content-end social_icon">
           <span>
             <i class="fab fa-facebook-square"></i>
@@ -23,7 +23,7 @@
                 <i class="fas fa-at"></i>
               </span>
             </div>
-            <input name="email" v-model="$v.email.$model" type="text" class="form-control" :class="{ 'is-invalid': $v.email.$error}" placeholder="e-mail">
+            <input name="email" v-model="$v.email.$model" type="text" class="form-control" :class="{ 'is-invalid': $v.email.$error}" :placeholder="$t('auth.emailPlaceholder')">
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -31,22 +31,22 @@
                 <i class="fas fa-key"></i>
               </span>
             </div>
-            <input name="password" v-model="$v.password.$model" type="password" class="form-control" :class="{ 'is-invalid': $v.password.$error}"  placeholder="пароль">
+            <input name="password" v-model="$v.password.$model" type="password" class="form-control" :class="{ 'is-invalid': $v.password.$error}"  :placeholder="$t('auth.passwordPlaceholder')">
           </div>
           <div class="row align-items-center remember">
-            <input name="rememberme" type="checkbox" v-model="rememberme">Запомнить меня
+            <input name="rememberme" type="checkbox" v-model="rememberme">{{$t('auth.rememberMe')}}
           </div>
           <div class="form-group">
-            <input type="submit" v-on:click="login" value="Войти" class="btn float-right login_btn">
+            <input type="submit" v-on:click="login" :value="$t('auth.doLogin')" class="btn float-right login_btn">
           </div>
         </form>
       </div>
       <div class="card-footer">
         <div class="d-flex justify-content-center links">
-          Еще не зарегистрированы? <router-link to='/register'>Регистрация</router-link>
+          {{$t('auth.registerLinkBeforeText')}} <router-link to='/register'>{{$t('auth.registerLink')}}</router-link>
         </div>
         <div class="d-flex justify-content-center">
-          <a href="#">Забыли пароль?</a>
+          <a href="#">{{$t('auth.fogotPassword')}}</a>
         </div>
       </div>
     </div>
@@ -92,17 +92,11 @@ export default {
         data: {email: this.email, password: this.password, rememberme: this.rememberme},
         rememberMe: this.rememberme,
         redirect: {name: 'home'},
-        
-        error: error => {
-          console.dir(error.response);          
-          this.$notify({
-            type: 'error',
-            text: "Ошибка входа: " + error.response.data.message,
-          });
-        },
-
+        error: function (error){
+          this.$auth.logout();
+        }
       });
-    },
+      },
   },
 }
 </script>

@@ -1,0 +1,23 @@
+{
+  "message": "hello i18n !!",
+  "auth": {
+    "login": "Вход",
+    "register": "Регистрация",
+    "fogotPassword": "Забыли пароль?",
+    "registerLink": "Регистрация",
+    "alreadyRegisterLink": "Уже зарегистрированы?",
+    "registerLinkBeforeText": "Еще не зарегистрированы?",
+    "rememberMe": "Запомнить меня",
+    "doLogin": "Войти",
+    "doRegister": "Регистрация",
+    "emailPlaceholder": "e-mail",
+    "passwordPlaceholder": "пароль",
+    "namePlaceholder": "имя пользователя",
+    
+    "errors": {
+      "loginFailed": "Ошибка входа (неправильный e-mail или пароль)",
+      "filedIsRequired": "Поле '%f' не заполнено",
+      "fieldNotValid": "Поле '%f' заполнено неправильно"
+    }
+  }
+}

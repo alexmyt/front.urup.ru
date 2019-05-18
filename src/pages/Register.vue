@@ -2,7 +2,7 @@
   <div id="login-form-wrapper" class="d-flex justify-content-center h-100">
     <div class="card">
       <div class="card-header">
-        <h3>Регистрация</h3>
+        <h3>{{$t('auth.register')}}</h3>
         <div class="d-flex justify-content-end social_icon">
           <span>
             <i class="fab fa-facebook-square"></i>
@@ -23,7 +23,7 @@
                 <i class="fas fa-user"></i>
               </span>
             </div>
-            <input name="name" v-model="$v.name.$model" type="text" class="form-control" :class="{ 'is-invalid': $v.name.$error}" placeholder="Имя пользователя">
+            <input name="name" v-model="$v.name.$model" type="text" class="form-control" :class="{ 'is-invalid': $v.name.$error}" :placeholder="$t('auth.namePlaceholder')">
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -31,7 +31,7 @@
                 <i class="fas fa-at"></i>
               </span>
             </div>
-            <input name="email" v-model="$v.email.$model" type="text" class="form-control" :class="{ 'is-invalid': $v.email.$error}" placeholder="E-Mail">
+            <input name="email" v-model="$v.email.$model" type="text" class="form-control" :class="{ 'is-invalid': $v.email.$error}" :placeholder="$t('auth.emailPlaceholder')">
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -39,20 +39,20 @@
                 <i class="fas fa-key"></i>
               </span>
             </div>
-            <input name="password" v-model="$v.password.$model" type="password" class="form-control" :class="{ 'is-invalid': $v.password.$error}" placeholder="Пароль">
+            <input name="password" v-model="$v.password.$model" type="password" class="form-control" :class="{ 'is-invalid': $v.password.$error}" :placeholder="$t('auth.passwordPlaceholder')">
           </div>
           <div class="row align-items-center remember">
-            <input name="rememberme" type="checkbox" v-model="rememberme">Запомнить меня
+            <input name="rememberme" type="checkbox" v-model="rememberme">{{$t('auth.rememberMe')}}
           </div>
           <div class="form-group">
-            <input type="submit" v-on:click="register" value="Регистрация" class="btn float-right login_btn">
+            <input type="submit" v-on:click="register" :value="$t('auth.doRegister')" class="btn float-right login_btn">
           </div>
         </form>
       </div>
       <div class="card-footer">
         <div class="d-flex justify-content-center links">
-          Уже зарегистрированы?
-          <router-link to="/login">Войти</router-link>
+          {{$t('auth.alreadyRegisterLink')}}
+          <router-link to="/login">{{$t('auth.doLogin')}}</router-link>
         </div>
       </div>
     </div>
@@ -105,12 +105,7 @@ export default {
         autoLogin: true,
 
         error: error => {
-          this.$notify({
-            type: 'error',
-            text: "Ошибка входа: " + error.response.data.message,
-          });
         },
-
       });
     },
   },
@@ -186,7 +181,6 @@ input:focus {
 .login_btn {
   color: black;
   background-color: #ffc312;
-  width: 100px;
 }
 
 .login_btn:hover {

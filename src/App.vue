@@ -20,14 +20,12 @@ import "./styles/global.scss";
 
 import Navbar from "./components/Navbar.vue";
 import MainSearch from 'components/MainSearch.vue';
-import LoginPage from './pages/Login.vue';
 
 export default {
   name: 'app',
   components: {
     'navbar': Navbar,
     'main-search': MainSearch,
-    'login-page': LoginPage,
   },
   data () {
     return {

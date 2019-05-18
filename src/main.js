@@ -9,15 +9,42 @@ import Vue from 'vue';
 import Router from './routes';
 
 import App from './App.vue';
+import i18n from './i18n'
 
 Vue.use(VueSelect, {
   theme: 'bootstrap', // "bootstrap" or 'material-design'
 });
 
+Vue.use(Notifications);
+
 axios.defaults.baseURL = 'https://www1.urup.ru/api/';
 axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest',
 }
+axios.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+
+  function (error) {
+    var errorText = '';
+    if (error.response){
+      if (error.response.data.message){
+        errorText = error.response.data.message;
+      }
+
+      if (error.response.data.error){
+        errorText = error.response.data.error;
+      }
+    }
+
+      Vue.notify({
+        type: 'error',
+        text: errorText,
+      });
+    return Promise.reject(error);
+  }
+);
 Vue.use(VueAxios, axios);
 
 Vue.use(BootstrapVue);
@@ -26,8 +53,6 @@ Vue.use(Vuelidate);
 Vue.use(YmapPlugin, {
   apiKey: '408aac5f-1a8e-4061-8f4e-6acf7fcc06fb',
 });
-
-Vue.use(Notifications);
 
 // Authenticate plugin
 Vue.router = Router;  // need for vue-auth
@@ -59,5 +84,6 @@ Router.beforeEach(
 new Vue({
   el: '#app',
   render: h => h(App),
-  router: Router,
+  i18n,
+  router: Router
 });
