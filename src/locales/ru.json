@@ -2,6 +2,7 @@
   "message": "hello i18n !!",
   "auth": {
     "login": "Вход",
+    "logout": "Выход",
     "register": "Регистрация",
     "fogotPassword": "Забыли пароль?",
     "registerLink": "Регистрация",

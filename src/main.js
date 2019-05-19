@@ -62,6 +62,11 @@ Vue.use(require('@websanova/vue-auth'), {
   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
   fetchData: {url: 'user'},
   refreshData: {url: 'user'},
+  parseUserData: function (data){
+    var result = {id: data.data.id};
+    Object.assign(result,data.data.attributes);
+    return result;
+  }
 });
 
 // Hooks for disable access all pages without authenticate

@@ -5,7 +5,6 @@
         <router-link class="navbar-brand navbar-text text-hide float-left" to="/" exact>Урюпинск.Онлайн</router-link>
         <div class="nav-social justify-content-end d-none d-md-flex">
           <ul>
-            <li><a href="#" v-on:click="logout">Log Out</a></li>
             <li><a href="#"><i class="fa fa-rss-square fa-fw" data-placement="bottom" title="" data-original-title="Subscribe to Our RSS Feed"></i></a></li>
             <li class="last"></li>
           </ul>
@@ -27,6 +26,16 @@
             </b-nav-item-dropdown>
             <b-nav-item class="menu-tourists">Гостям</b-nav-item>
             <b-nav-item class="menu-business last">Бизнесу</b-nav-item>
+          </b-navbar-nav>
+
+          <b-navbar-nav pills class="ml-auto">
+            <b-nav-item-dropdown class="menu-user last">
+              <template slot="button-content"><i class="fas fa-user"></i></template>
+              <b-dropdown-item v-if="!$auth.check()" to="/login"><i class="fas fa-sign-in-alt"></i> {{$t('auth.login')}}</b-dropdown-item>
+              <b-dropdown-item v-if="!$auth.check()" to="/register"><i class="fas fa-user-plus"></i> {{$t('auth.register')}}</b-dropdown-item>
+              <b-dropdown-item v-if="$auth.check()" v-on:click="logout"><i class="fas fa-sign-out-alt"></i> {{$t('auth.logout')}}</b-dropdown-item>
+            </b-nav-item-dropdown>
+
           </b-navbar-nav>
         </b-collapse>
       </b-container>
@@ -129,6 +138,10 @@ nav.nav-menu {
         width: 100%;
         border: none;
       }
+
+      .dropdown-item i.fas{
+        width: 20px;
+      }
     }
 
     a, .dropdown-menu a {
@@ -157,7 +170,12 @@ nav.nav-menu {
     &.menu-tourists, &.menu-tourists.open {
       @include navbar-colored-menu($tourists-bg);
     }
-  }
+
+    &.menu-user, &.menu-user.open {
+      @include navbar-colored-menu(rgba(0,147,221,0.88));
+    }
+
+}
 
 }
 
