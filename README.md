@@ -2,6 +2,16 @@
 
 > Frontend for urup.ru
 
+## Used components
+
+[axios](https://github.com/axios/axios)
+[bootstrap-vue](https://bootstrap-vue.js.org)
+[vue-i18n](https://kazupon.github.io/vue-i18n)
+[Vuelidate](https://vuelidate.netlify.com)
+[vue-notification](http://vue-notification.yev.io/)
+[vue-auth](https://github.com/websanova/vue-auth)
+[vue-fab](https://github.com/PygmySlowLoris/vue-fab)
+
 ## Build Setup
 
 ``` bash

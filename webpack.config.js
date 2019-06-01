@@ -108,6 +108,10 @@ module.exports = {
           rel: 'stylesheet',
           integrity: 'sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU',
           crossorigin: 'anonymous' 
+        },
+        {
+          href: 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css',
+          rel: 'stylesheet',
         }
       ]
     }),

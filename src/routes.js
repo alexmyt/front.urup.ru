@@ -8,6 +8,7 @@ import TaxiService from './pages/TaxiService.vue';
 import TaxiServices from './pages/TaxiServices.vue';
 import Organisations from './pages/Organisations.vue';
 import Organisation from './pages/Organisation.vue';
+import OrganisationForm from './pages/OrganisationForm.vue';
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,8 @@ const router = new VueRouter({
     { path: '/transport/taxi/:id', name: 'taxiService', component: TaxiService },
     { path: '/organisations', name: 'organisations', component: Organisations },
     { path: '/organisations/:id', name: 'organisation', component: Organisation },
+    { path: '/organisations/:id/edit', name: 'editOrganisation', component: OrganisationForm},
+    { path: '/organisations/create', name: 'createOrganisation', component: OrganisationForm},
   ],
 });
 

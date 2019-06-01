@@ -58,17 +58,30 @@
       </div>
       <div class="organisationDescription" v-html="organisation.attributes.description"></div>
     </article>
+
+    <fab
+      position="down-right"
+      bg-color="#0093DD"
+      :actions="fabActions"
+      start-opened=true
+      fixed-tooltip=true
+      @add="add"
+      @edit="edit"
+    ></fab>
+
   </div>
 </template>
 
 <script>
-import PageHeader from "components/PageHeader.vue";
+import PageHeader from "../components/PageHeader.vue";
 import PhoneNumber from "components/PhoneNumber.vue";
+import fab from 'vue-fab';
 
 export default {
   components: {
     pageHeader: PageHeader,
-    phoneNumber: PhoneNumber
+    phoneNumber: PhoneNumber,
+    fab
   },
 
   data () {
@@ -87,7 +100,9 @@ export default {
         { text: "Главная", to: { name: "home" } },
         { text: "Организации", to: { name: "organisations" } }
       ],
-      placemarks: []
+      placemarks: [],
+
+      fabActions: [],
     };
   },
 
@@ -136,7 +151,23 @@ export default {
             options: {}
           }
         ];
+
+        // FAB innitialisation
+        if (this.$auth.check('editor')){
+          this.fabActions.push({name: 'edit', icon: 'edit', tooltip: this.$t('edit')});
+        };
+        this.fabActions.push({name: 'add', icon: 'add', tooltip: this.$t('add')});
       });
+  },
+
+  methods:{
+    add() {
+
+    },
+
+    edit() {
+      this.$router.push({name: 'editOrganisation', params:{id: this.$route.params.id}});
+    },
   }
 };
 </script>

@@ -48,7 +48,7 @@
 
       this.url = path;
  
-}
+    },
   }
 
 </script>
