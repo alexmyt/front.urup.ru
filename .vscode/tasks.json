@@ -8,11 +8,5 @@
       "script": "dev",
       "problemMatcher": []
     },
-    {
-      "type": "eslint",
-      "problemMatcher": [
-        "$eslint-stylish"
-      ]
-    }
   ]
 }

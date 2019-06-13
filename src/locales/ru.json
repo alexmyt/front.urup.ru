@@ -28,12 +28,26 @@
     }
   },
 
-  "organisation":{
+  "organisation": {
     "form" :{
       "name": "Название организации",
       "shortName": "Короткое (народное) наименование",
       "description": "Описание",
       "slug": "Часть пути"
     }
+  },
+
+  "contact": {
+    "form": {
+      "contacts": "Контакты",
+      "phone": "Телефон",
+      "uri": "Сайт",
+      "email": "E-Mail",
+      "description": "Пояснение",
+      "emailContact": "Адрес электронной почты",
+      "uriContact": "Адрес сайта",
+      "phoneContact": "+70123156789"
+    }
   }
+
 }
